@@ -1,22 +1,11 @@
 ## What this is about?
 
-You have probably heard of N+1 queries problem. In the rails community, there are a [bullet](https://github.com/flyerhzm/bullet) and [rspec-sqlimit](https://github.com/nepalez/rspec-sqlimit) gems that help to detect this kind of queries. `sequel_query_limit` is a [Sequel](https://github.com/jeremyevans/sequel) extension that pursuits the very much similar goal as `rspec-sqllmit` does. Maybe a little more :)
+You have probably heard of N+1 queries problem. In the rails community, there are a [bullet](https://github.com/flyerhzm/bullet) and [rspec-sqlimit](https://github.com/nepalez/rspec-sqlimit) gems that help to detect this kind of queries. `sequel_query_limit` is a [Sequel](https://github.com/jeremyevans/sequel) extension that pursuits the very much similar goal as `rspec-sqlimit` does. Maybe a little more :)
 
 
 ## Usage
 
-#### `#with_query_limit`
-
-```ruby
-DB.with_query_limit(/SELECT/, max: 3) do
-  collection = Models::Company.limit(10).all
-  App::Companies::Serializer.for_collection.new(collection).to_hash
-end
-```
-
-This will return result of your query if it's not exceeding specified `max` limit. Otherwise, it will raise and exception with captured sql queries.
-
-#### Haven't figured out the name yet
+#### With RSpec
 
 ```ruby
 module SqlSpecHelper
@@ -40,6 +29,22 @@ RSpec.describe 'analyzer', watch: :np1 do
 end
 ```
 
+Using this technique you can check individual examples for N+1 quries withouth wrapping everything into `DB.with_query_limit` block.
+
+
+#### `#with_query_limit`
+
+Maybe useful for ad-hoc testing via console. This also can be used in tests.
+
+```ruby
+DB.with_query_limit(/SELECT/, max: 3) do
+  collection = Models::Company.limit(10).all
+  App::Companies::Serializer.for_collection.new(collection).to_hash
+end
+```
+
+This will return result of your query if it's not exceeding specified `max` limit. Otherwise, it will raise an exception with captured sql queries.
+
 ## TODO
 
 - Add configuration option for what to do when query exceeds a limit (raise exception or run a callback)
@@ -50,16 +55,9 @@ end
 - Add ability to analyze on the fly
 
 
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sequel_query_limit.
+Bug reports and pull requests are welcome!
 
 
 ## License
