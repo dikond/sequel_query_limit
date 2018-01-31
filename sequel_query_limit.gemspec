@@ -16,8 +16,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.3.0'
 
-  spec.add_runtime_dependency     'sequel', '~> 4.0', '>= 4.0.0'
-  spec.add_runtime_dependency     'wisper', '~> 2.0', '>= 2.0.0'
+  spec.add_runtime_dependency     'sequel', '>= 4.0', '< 6.0'
+  spec.add_runtime_dependency     'wisper', '~> 2.0'
 
   spec.add_development_dependency 'bundler', '~> 1.14'
   spec.add_development_dependency 'rake', '~> 10.0'
