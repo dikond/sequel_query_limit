@@ -30,7 +30,7 @@ RSpec.configure do |config|
   config.include SqlHelper, watch_sql: true
 end
 
-RSpec.describe App::Companies::Serializer, :watch_sql do
+RSpec.describe App::Companies::Serializer do
   subject { described_class.new(company).to_hash }
 
   let(:company) { Fabricate(:company) }
