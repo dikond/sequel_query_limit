@@ -1,11 +1,7 @@
 require "spec_helper"
 
-RSpec.describe SequelQueryLimit do
-  it "has a version number" do
-    expect(SequelQueryLimit::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+RSpec.describe QueryLimit do
+  it 'has a version number' do
+    expect(QueryLimit::VERSION).not_to be nil
   end
 end

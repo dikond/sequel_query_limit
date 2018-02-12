@@ -14,6 +14,10 @@ module QueryLimit
       @stack << Entry.new(sql, stacktrace)
     end
 
+    def grep(pattern)
+      @stack.map(&:sql).grep(pattern)
+    end
+
     class Global
       VAR_NAME = 'query_limit_spy'.freeze
 

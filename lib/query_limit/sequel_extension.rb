@@ -13,10 +13,12 @@ module QueryLimit
 
     def with_query_limit(pattern, max:)
       listener = QueryLimit::Listener.new
+      result = nil
 
-      Wisper.subscribe(listener, on: :sequel_query) { yield }
+      Wisper.subscribe(listener, on: :sequel_query) { result = yield }
 
-      raise QueryLimit::Errors::ExceedingMaxError if listener.stack.grep(pattern).size > max
+      return result if listener.grep(pattern).size <= max
+      raise QueryLimit::Errors::MaxQueriesLimitReached
     end
   end
 end

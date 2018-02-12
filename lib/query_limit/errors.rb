@@ -1,5 +1,5 @@
 module QueryLimit
   module Errors
-    class ExceedingMaxError < StandardError; end
+    MaxQueriesLimitReached = Class.new(StandardError)
   end
 end
